@@ -198,6 +198,26 @@ button[type=submit]:disabled{background:var(--blush);cursor:wait}
 .rsvp-thanks{border-style:solid;border-color:var(--blush);color:var(--ink)}
 .hidden{display:none}
 
+/* ---------- rsvp: guest-list gate + per-guest rows ---------- */
+.form-intro{max-width:52ch;margin:0 auto 22px;text-align:center;color:var(--soft)}
+.form-greeting{max-width:52ch;margin:0 auto 24px;text-align:center;font-family:var(--serif);font-style:italic;font-size:21px;color:var(--ink)}
+.grid2{display:grid;gap:0 22px}
+@media(min-width:520px){.grid2{grid-template-columns:1fr 1fr}}
+.hint{font-size:10px;letter-spacing:.14em;text-transform:none;color:var(--soft)}
+#guestBlock>label{margin-bottom:12px}
+.guest-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.guest-row input{flex:1 1 140px;min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--paper);
+  padding:12px 14px;font-family:var(--sans);font-size:15px;color:var(--ink)}
+.guest-row .g-diet{flex:1 1 180px}
+.guest-row input:focus{outline:2px solid var(--sage);outline-offset:1px}
+.g-remove{flex:0 0 auto;width:38px;height:38px;border:1px solid var(--line);background:#fff;color:var(--rose-deep);
+  border-radius:999px;font-size:22px;line-height:1;cursor:pointer;transition:.15s}
+.g-remove:hover{border-color:var(--rose);background:var(--blush-tint)}
+.addguest{background:none;border:1px dashed var(--sage);color:var(--forest);border-radius:999px;padding:10px 20px;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-family:var(--sans);cursor:pointer;transition:.15s}
+.addguest:hover{background:var(--sage-tint)}
+.form-error{margin-top:16px;text-align:center;color:var(--rose-deep);font-size:15px}
+
 /* ---------- footer ---------- */
 footer{padding:80px 24px 66px;text-align:center;border-top:1px solid var(--line)}
 footer .verse{font-family:var(--serif);font-style:italic;font-size:22px;max-width:40ch;margin:0 auto 10px}
@@ -463,19 +483,35 @@ footer .date{margin-top:8px;font-size:11px;letter-spacing:.32em;text-transform:u
     <div class="rsvp-note" id="rsvpClosed">
       <p>The RSVP will open when invitations go out.<br>For now — save the date: <strong>May&nbsp;1,&nbsp;2027</strong>.</p>
     </div>
-    <form id="rsvpForm" class="hidden" novalidate>
-      <div class="field"><label for="name">Your full name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
+    <!-- STEP 1 — find your invitation (name must match the private guest list) -->
+    <form id="gateForm" class="formcard hidden" novalidate>
+      <p class="form-intro">Please enter your name exactly as it appears on your invitation.</p>
+      <div class="grid2">
+        <div class="field"><label for="gFirst">First name</label><input type="text" id="gFirst" name="first" autocomplete="given-name" required></div>
+        <div class="field"><label for="gLast">Last name</label><input type="text" id="gLast" name="last" autocomplete="family-name" required></div>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="company">Leave this field empty</label><input type="text" id="company" name="company" tabindex="-1" autocomplete="off"></div>
+      <button type="submit" id="findBtn">Find my invitation</button>
+      <p class="form-error hidden" id="gateError"></p>
+    </form>
+
+    <!-- STEP 2 — the RSVP itself (each guest becomes its own row in your sheet) -->
+    <form id="rsvpForm" class="formcard hidden" novalidate>
+      <p class="form-greeting" id="greeting"></p>
       <div class="field"><label>Will you be joining us?</label>
         <div class="radios">
           <label><input type="radio" name="attending" value="Joyfully accepts" required> Joyfully accepts</label>
           <label><input type="radio" name="attending" value="Regretfully declines"> Regretfully declines</label>
         </div>
       </div>
-      <div class="field"><label for="guests">Everyone attending from your invitation</label><textarea id="guests" name="guests" placeholder="Including yourself — one name per line"></textarea></div>
-      <div class="field"><label for="dietary">Dietary restrictions or allergies</label><textarea id="dietary" name="dietary" placeholder="Anything the kitchen should know (optional)"></textarea></div>
-      <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" placeholder="In case we need to reach you (optional)"></div>
-      <div class="hp" aria-hidden="true"><label for="company">Leave this field empty</label><input type="text" id="company" name="company" tabindex="-1" autocomplete="off"></div>
+      <div class="field" id="guestBlock">
+        <label>Who's coming? <span class="hint">one row per person</span></label>
+        <div id="guestRows"></div>
+        <button type="button" class="addguest" id="addGuest">+ Add another guest</button>
+      </div>
+      <div class="field"><label for="email">Email <span class="hint">optional</span></label><input type="email" id="email" name="email" autocomplete="email" placeholder="In case we need to reach you"></div>
       <button type="submit" id="sendBtn">Send our RSVP</button>
+      <p class="form-error hidden" id="rsvpError"></p>
     </form>
     <div class="rsvp-thanks hidden" id="rsvpThanks">
       <p><strong>Got it — thank you!</strong><br>Your RSVP is in. We can't wait to celebrate with you.</p>
@@ -493,27 +529,137 @@ footer .date{margin-top:8px;font-size:11px;letter-spacing:.32em;text-transform:u
 </footer>
 
 <script>
-/* EDIT #6 — RSVP switches (unchanged from v1) */
+/* EDIT #6 — RSVP settings
+   SCRIPT_URL : your Apps Script Web app URL (ends in /exec)
+   RSVP_OPEN  : false = show the "opens when invitations go out" note; true = live form */
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaBwloJ7WF471s-_qajvdwzv6gK5ory5RC88FMD9TLdwP0_VbCyvVJht4Q1AEFemAnhw/exec";
 const RSVP_OPEN  = true;
 
+/* countdown in the hero */
 (function(){ const d = Math.ceil((new Date(2027,4,1)-new Date())/86400000);
   if(d>0) document.getElementById('countdown').textContent = d+" days to go"; })();
 
-const form = document.getElementById('rsvpForm');
-if (RSVP_OPEN && SCRIPT_URL.startsWith('https://')) {
+(function(){
+  const gateForm  = document.getElementById('gateForm');
+  const rsvpForm  = document.getElementById('rsvpForm');
+  const guestRows = document.getElementById('guestRows');
+  const guestBlock= document.getElementById('guestBlock');
+  const greeting  = document.getElementById('greeting');
+  const gateError = document.getElementById('gateError');
+  const rsvpError = document.getElementById('rsvpError');
+
+  let matched = null;   // { first, last } once a name passes the guest-list check
+
+  // Stay closed until RSVP_OPEN is true (and a real endpoint is set).
+  if (!(RSVP_OPEN && SCRIPT_URL.indexOf('https://') === 0)) return;
   document.getElementById('rsvpClosed').classList.add('hidden');
-  form.classList.remove('hidden');
-}
-form.addEventListener('submit', async function(e){
-  e.preventDefault();
-  if(!form.reportValidity()) return;
-  if(form.company.value) return;
-  const btn=document.getElementById('sendBtn'); btn.disabled=true; btn.textContent="Sending…";
-  try{ await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:new FormData(form)}); }catch(err){}
-  form.classList.add('hidden');
-  document.getElementById('rsvpThanks').classList.remove('hidden');
-});
+  gateForm.classList.remove('hidden');
+
+  // POST a simple form (no CORS preflight) and read the JSON reply.
+  function post(data){
+    const fd = new FormData();
+    Object.keys(data).forEach(function(k){ fd.append(k, data[k]); });
+    return fetch(SCRIPT_URL, { method:'POST', body: fd }).then(function(r){ return r.json(); });
+  }
+  function trim(v){ return (v || '').trim(); }
+  function showRsvpError(msg){ rsvpError.textContent = msg; rsvpError.classList.remove('hidden'); }
+
+  function addRow(first, last){
+    const row = document.createElement('div');
+    row.className = 'guest-row';
+    row.innerHTML =
+      '<input type="text" class="g-first" placeholder="First name" autocomplete="off">' +
+      '<input type="text" class="g-last"  placeholder="Last name"  autocomplete="off">' +
+      '<input type="text" class="g-diet"  placeholder="Dietary needs (optional)" autocomplete="off">' +
+      '<button type="button" class="g-remove" aria-label="Remove this guest">&times;</button>';
+    row.querySelector('.g-first').value = first || '';
+    row.querySelector('.g-last').value  = last  || '';
+    row.querySelector('.g-remove').addEventListener('click', function(){ row.remove(); });
+    guestRows.appendChild(row);
+  }
+
+  /* STEP 1 — check the name against the guest list */
+  gateForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(!gateForm.reportValidity()) return;
+    if(gateForm.company.value) return;                 // honeypot
+    gateError.classList.add('hidden');
+    const btn = document.getElementById('findBtn');
+    btn.disabled = true; btn.textContent = 'Checking\u2026';
+    const first = trim(gateForm.first.value), last = trim(gateForm.last.value);
+    try {
+      const res = await post({ action:'check', first: first, last: last });
+      if (res && res.ok){
+        matched = { first: res.first || first, last: res.last || last };
+        greeting.textContent = 'Welcome, ' + matched.first + '! Please tell us who\u2019s joining.';
+        gateForm.classList.add('hidden');
+        rsvpForm.classList.remove('hidden');
+        addRow(matched.first, matched.last);           // pre-fill the first attendee
+      } else {
+        gateError.textContent = ((res && res.message) || 'We couldn\u2019t find that name.') +
+          ' Please enter it exactly as printed on your invitation, or reach out to us.';
+        gateError.classList.remove('hidden');
+      }
+    } catch (err){
+      gateError.textContent = 'Sorry \u2014 we couldn\u2019t reach the guest list just now. Please try again in a moment.';
+      gateError.classList.remove('hidden');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Find my invitation';
+    }
+  });
+
+  /* accept vs decline toggles the guest list */
+  rsvpForm.addEventListener('change', function(e){
+    if (e.target.name === 'attending'){
+      guestBlock.classList.toggle('hidden', e.target.value.indexOf('declines') !== -1);
+    }
+  });
+
+  document.getElementById('addGuest').addEventListener('click', function(){ addRow('',''); });
+
+  /* STEP 2 — submit one row per guest */
+  rsvpForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    rsvpError.classList.add('hidden');
+    if(!rsvpForm.reportValidity()) return;
+    const picked = rsvpForm.querySelector('input[name="attending"]:checked');
+    if(!picked){ showRsvpError('Please choose "Joyfully accepts" or "Regretfully declines."'); return; }
+    const declining = picked.value.indexOf('declines') !== -1;
+
+    let guests = [];
+    if (!declining){
+      guestRows.querySelectorAll('.guest-row').forEach(function(r){
+        const f = trim(r.querySelector('.g-first').value);
+        const l = trim(r.querySelector('.g-last').value);
+        const d = trim(r.querySelector('.g-diet').value);
+        if (f || l) guests.push({ first:f, last:l, dietary:d });
+      });
+      if (guests.length === 0){ showRsvpError('Please add at least one guest, or choose "Regretfully declines."'); return; }
+    }
+
+    const btn = document.getElementById('sendBtn'); btn.disabled = true; btn.textContent = 'Sending\u2026';
+    try {
+      const res = await post({
+        action:'rsvp',
+        attending: picked.value,
+        email: trim(rsvpForm.email.value),
+        subFirst: matched.first,
+        subLast: matched.last,
+        guests: JSON.stringify(guests)
+      });
+      if (res && res.ok){
+        rsvpForm.classList.add('hidden');
+        document.getElementById('rsvpThanks').classList.remove('hidden');
+      } else {
+        showRsvpError((res && res.message) || 'Something went wrong saving your RSVP. Please try again.');
+        btn.disabled = false; btn.textContent = 'Send our RSVP';
+      }
+    } catch (err){
+      showRsvpError('Something went wrong saving your RSVP. Please try again.');
+      btn.disabled = false; btn.textContent = 'Send our RSVP';
+    }
+  });
+})();
 
 </script>
 </body>
