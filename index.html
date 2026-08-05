@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Joseph &amp; Maria — May 1, 2027</title>
+<meta property="og:title" content="Joseph &amp; Maria — May 1, 2027">
+<meta property="og:description" content="We're getting married! Details, our story, and RSVP.">
+<!-- EDIT #0: link-preview image shown when the site is texted/shared. Points at your live domain. -->
+<meta property="og:image" content="https://josephandmaria2027.com/images/hero-beach.jpg">
+
+<!-- ============================================================
+  EDIT GUIDE — search for "EDIT #" to find every changeable spot:
+    EDIT #0  og:image domain   EDIT #1  ceremony time/address
+    EDIT #2  reception         EDIT #3  RSVP deadline (FAQ)
+    EDIT #4  registry links    EDIT #5  verses (x3)
+    EDIT #6  RSVP switches (open form + Apps Script URL)
+  ============================================================ -->
+
+
+<style>
+@font-face{font-family:'Great Vibes';font-style:normal;font-weight:400;src:url("fonts/great-vibes-latin-400-normal.woff2") format("woff2");font-display:swap}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:400;src:url("fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2");font-display:swap}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:400;src:url("fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2");font-display:swap}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500;src:url("fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2");font-display:swap}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:600;src:url("fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2");font-display:swap}
+@font-face{font-family:'Jost';font-style:normal;font-weight:300;src:url("fonts/jost-latin-300-normal.woff2") format("woff2");font-display:swap}
+@font-face{font-family:'Jost';font-style:normal;font-weight:400;src:url("fonts/jost-latin-400-normal.woff2") format("woff2");font-display:swap}
+@font-face{font-family:'Jost';font-style:normal;font-weight:500;src:url("fonts/jost-latin-500-normal.woff2") format("woff2");font-display:swap}
+</style>
+<style>
+:root{
+  --paper:#FBF8F4; --ink:#333831; --soft:#63665D;
+  --blush:#EBBFC3; --blush-tint:#F7E7E8; --rose:#C57E89; --rose-deep:#A9616D;
+  --sage:#6E8A62; --forest:#35503A; --sage-tint:#CFDEC5; --line:#E9DDD3;
+  --script:"Great Vibes",cursive;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Jost","Avenir Next","Segoe UI",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--blush-tint)}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;
+  font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;padding-top:60px}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--forest)}
+:focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+section{padding:84px 0}
+.center{text-align:center}
+.eyebrow{font-weight:400;letter-spacing:.34em;text-transform:uppercase;font-size:11px;color:var(--forest)}
+h2{font-family:var(--script);font-weight:400;font-size:clamp(44px,6vw,64px);line-height:1.05;color:var(--rose-deep);margin:12px 0 10px}
+.amp{color:var(--rose)}
+.epigraph{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--soft);max-width:46ch;margin:10px auto 0}
+.epigraph .ref{display:block;font-family:var(--sans);font-style:normal;font-size:10px;letter-spacing:.3em;text-transform:uppercase;margin-top:9px;color:var(--forest)}
+
+/* section color rhythm: smooth sage/blush chain, photo hero on top */
+#story{background:linear-gradient(180deg,var(--sage-tint) 0%,var(--sage-tint) 82%,var(--blush-tint) 100%)}
+#details{background:linear-gradient(180deg,var(--blush-tint) 0%,var(--blush-tint) 85%,var(--sage-tint) 100%)}
+.attire{background:linear-gradient(180deg,var(--sage-tint) 0%,var(--sage-tint) 78%,var(--blush-tint) 100%)}
+#faq{background:linear-gradient(180deg,var(--blush-tint) 0%,var(--blush-tint) 85%,var(--sage-tint) 100%)}
+#registry{background:linear-gradient(180deg,var(--sage-tint) 0%,var(--sage-tint) 78%,var(--blush-tint) 100%)}
+.rsvp{background:linear-gradient(180deg,var(--blush-tint) 0%,var(--blush-tint) 85%,var(--sage-tint) 100%)}
+footer{background:linear-gradient(180deg,var(--sage-tint) 0%,var(--sage-tint) 40%,var(--blush-tint) 100%)}
+
+/* ---------- nav ---------- */
+.topnav{position:fixed;top:0;left:0;right:0;height:60px;z-index:50;background:rgba(251,248,244,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:0 20px}
+.topnav .brand{font-family:var(--serif);font-weight:600;font-size:15px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;color:var(--ink);white-space:nowrap}
+.topnav ul{display:flex;gap:22px;list-style:none;margin-left:auto;overflow-x:auto}
+.topnav ul a{font-size:12px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--soft);white-space:nowrap}
+.topnav ul a:hover{color:var(--rose-deep)}
+.topnav .navbtn{background:var(--rose);color:#fff;border-radius:999px;padding:9px 22px;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.topnav .navbtn:hover{background:var(--rose-deep)}
+@media(max-width:720px){.topnav ul{display:none}}
+
+/* ---------- hero: full-bleed photo, script + tracked caps ---------- */
+.hero{position:relative;min-height:calc(100vh - 60px);padding:0;
+  background-image:url("images/hero-beach.jpg");background-size:cover;background-position:52% 38%}
+.hero-overlay{position:relative;min-height:calc(100vh - 60px);display:flex;flex-direction:column;
+  justify-content:space-between;align-items:center;text-align:center;padding:8vh 24px 3.5vh}
+.script{font-family:var(--script);font-size:clamp(56px,9vw,104px);line-height:1;color:var(--forest);
+  text-shadow:0 1px 12px rgba(255,255,255,.55)}
+.names{margin-top:16px;font-family:var(--serif);font-weight:500;font-size:clamp(28px,4.5vw,44px);
+  letter-spacing:.28em;text-transform:uppercase;color:var(--forest);text-shadow:0 1px 10px rgba(255,255,255,.5)}
+.hero-bottom{display:flex;flex-direction:column;gap:13px;align-items:center;
+  color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.3);max-width:min(96%,920px)}
+.hero-info{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
+.hero-date,.countdown{
+  background:rgba(38,44,38,.40);
+  -webkit-backdrop-filter:blur(14px) saturate(1.5);backdrop-filter:blur(14px) saturate(1.5);
+  border:1px solid rgba(255,255,255,.28);border-radius:12px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
+@supports not ((backdrop-filter:blur(4px)) or (-webkit-backdrop-filter:blur(4px))){
+  .hero-date,.countdown{background:rgba(38,44,38,.72)}
+}
+.hero-date{padding:11px 20px;font-size:clamp(13px,1.7vw,17px);letter-spacing:.22em;text-transform:uppercase;font-weight:400}
+.hero-date sup{font-size:.55em;letter-spacing:.1em}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-actions .btn{transition:transform .15s, background .2s}
+.hero-actions .btn:hover{transform:translateY(-1px)}
+.btn{display:inline-block;font-weight:400;letter-spacing:.2em;text-transform:uppercase;font-size:12px;
+  padding:14px 30px;border-radius:999px;text-decoration:none;transition:.2s}
+.btn-solid{background:rgba(255,255,255,.94);color:var(--rose-deep);text-shadow:none}
+.btn-solid:hover{background:#fff}
+.btn-ghostw{border:1.5px solid rgba(255,255,255,.95);color:#fff;
+  background:rgba(38,44,38,.18);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn-ghostw:hover{background:rgba(255,255,255,.25)}
+.btn-ghost{border:1px solid var(--line);color:var(--rose-deep);background:#fff}
+.btn-ghost:hover{border-color:var(--rose)}
+.countdown{margin:0;padding:9px 18px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#fff}
+@media(prefers-reduced-motion:no-preference){
+  .rise{opacity:0;transform:translateY(12px);animation:rise .9s ease forwards}
+  .rise.d1{animation-delay:.12s}.rise.d2{animation-delay:.24s}
+  @keyframes rise{to{opacity:1;transform:none}}
+}
+@media(max-width:720px){.hero,.hero-overlay{min-height:76vh}}
+
+/* ---------- story ---------- */
+figure{position:relative}
+.u-photo img,.solo img{border-radius:2px;width:100%}
+.u-photo,.solo{background:#fff;padding:14px 14px 12px;border-radius:4px;
+  box-shadow:0 12px 30px rgba(51,56,49,.18);transition:transform .25s ease}
+.unit:nth-of-type(odd) .u-photo{transform:rotate(1.6deg)}
+.unit:nth-of-type(even) .u-photo{transform:rotate(-1.8deg)}
+.unit .u-photo:hover,.solo:hover{transform:rotate(0deg)}
+figcaption{margin:16px 2px 4px;text-align:center;font-family:var(--serif);font-style:italic;font-size:18px;letter-spacing:.01em;text-transform:none;color:var(--ink)}
+.unit{margin:0 auto 84px;max-width:560px}
+.u-text{max-width:620px;margin:28px auto 0}
+.u-text p{margin-bottom:1.15em;font-size:17.5px}
+.solo{max-width:360px;margin:70px auto 0;transform:rotate(1.5deg)}
+@media(min-width:880px){
+  .unit{display:grid;grid-template-columns:1.02fr 1fr;gap:70px;align-items:center;max-width:1060px}
+  .unit:nth-of-type(even) .u-photo{order:2}
+  .u-text{margin-top:0}
+}
+.story-close{font-family:var(--script);font-size:clamp(30px,4vw,42px);color:var(--rose-deep);text-align:center;margin-top:26px}
+
+/* ---------- hairline flourish ---------- */
+.h-rule{display:flex;align-items:center;gap:16px;justify-content:center;margin:16px auto 4px;max-width:340px;color:var(--rose)}
+.h-rule::before,.h-rule::after{content:"";flex:1;height:1px;background:rgba(197,126,137,.4)}
+.h-rule span{font-family:var(--script);font-size:26px;line-height:1}
+
+/* ---------- details ---------- */
+.cards{display:grid;gap:22px;margin-top:38px}
+@media(min-width:880px){.cards{grid-template-columns:1fr 1fr}}
+.card{border:1px solid rgba(197,126,137,.35);border-radius:14px;padding:40px 36px;background:#fff}
+.card h3{font-family:var(--serif);font-weight:600;font-size:24px;letter-spacing:.14em;text-transform:uppercase;margin:10px 0 10px;color:var(--ink)}
+.card .when{color:var(--rose-deep);font-weight:400;letter-spacing:.06em}
+.card p{color:var(--soft);margin-top:8px}
+.card a.map{display:inline-block;margin-top:16px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--sage)}
+
+/* ---------- attire ---------- */
+.outfits{display:flex;justify-content:center;gap:clamp(26px,7vw,80px);margin:42px 0 30px;flex-wrap:wrap}
+.outfits svg{width:clamp(150px,22vw,200px);height:auto;color:var(--ink)}
+.outfits .label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--forest);text-align:center;margin-top:12px}
+.attire .prose{max-width:640px;margin:0 auto}
+.attire .note{color:var(--soft);font-size:15px;margin-top:14px}
+
+/* ---------- faq ---------- */
+.faq{max-width:720px;margin:30px auto 0;background:#fff;border:1px solid rgba(197,126,137,.35);border-radius:14px;padding:10px 36px}
+.faq details{border-bottom:1px solid var(--line);padding:6px 0}
+.faq details:last-of-type{border-bottom:none}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:22px 4px;font-family:var(--serif);font-size:21px;font-weight:600;letter-spacing:.02em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:300;font-size:26px;color:var(--rose);transition:transform .2s;font-family:var(--sans)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 4px 24px;color:var(--soft);max-width:58ch}
+@media(max-width:600px){.faq{padding:6px 20px}}
+
+/* ---------- registry ---------- */
+.registry-panel{max-width:640px;margin:30px auto 0;text-align:center;border:1px solid var(--blush);
+  border-radius:14px;padding:52px 36px;background:#fff}
+.registry-panel p{max-width:44ch;margin:0 auto;color:var(--soft)}
+
+/* ---------- rsvp ---------- */
+.formcard{max-width:620px;margin:34px auto 0;background:#fff;border:1px solid rgba(197,126,137,.35);border-radius:14px;padding:44px 38px}
+.field{margin-bottom:22px}
+label{display:block;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--forest);margin-bottom:8px}
+input[type=text],input[type=email],textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--paper);
+  padding:14px 16px;font-family:var(--sans);font-size:16px;color:var(--ink)}
+input:focus,textarea:focus{outline:2px solid var(--sage);outline-offset:1px}
+textarea{min-height:96px;resize:vertical}
+.radios{display:flex;gap:12px;flex-wrap:wrap}
+.radios label{display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:0;font-size:16px;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:12px 20px;cursor:pointer;margin:0}
+.radios input{accent-color:var(--rose)}
+.radios label:has(input:checked){border-color:var(--rose);background:var(--blush-tint)}
+button[type=submit]{width:100%;border:none;cursor:pointer;background:var(--rose);color:#fff;letter-spacing:.22em;
+  text-transform:uppercase;font-size:13px;font-weight:400;padding:17px;border-radius:999px;font-family:var(--sans);transition:.2s}
+button[type=submit]:hover{background:var(--rose-deep)}
+button[type=submit]:disabled{background:var(--blush);cursor:wait}
+.hp{position:absolute;left:-9999px;top:-9999px}
+.rsvp-note,.rsvp-thanks{max-width:560px;margin:30px auto 0;text-align:center;background:#fff;
+  border:1px dashed var(--sage);border-radius:14px;padding:34px 26px;color:var(--soft)}
+.rsvp-thanks{border-style:solid;border-color:var(--blush);color:var(--ink)}
+.hidden{display:none}
+
+/* ---------- footer ---------- */
+footer{padding:80px 24px 66px;text-align:center;border-top:1px solid var(--line)}
+footer .verse{font-family:var(--serif);font-style:italic;font-size:22px;max-width:40ch;margin:0 auto 10px}
+footer .ref{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--forest)}
+footer .names{margin-top:34px;font-family:var(--serif);font-weight:500;font-size:26px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink)}
+footer .date{margin-top:8px;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--rose-deep)}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="topnav">
+  <a class="brand" href="#top">Joseph <span class="amp">&amp;</span> Maria</a>
+  <ul>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#details">Details</a></li>
+    <li><a href="#attire">What to wear</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#registry">Registry</a></li>
+  </ul>
+  <a class="navbtn" href="#rsvp">RSVP</a>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-overlay">
+    <div class="hero-top">
+      <p class="script rise">We're getting married</p>
+      <p class="names rise d1">Joseph <span class="amp">&amp;</span> Maria</p>
+    </div>
+    <div class="hero-bottom rise d2">
+      <div class="hero-info">
+        <p class="hero-date">May 1<sup>st</sup> 2027 &nbsp;·&nbsp; Northline Church, Taylor MI</p>
+        <p class="countdown" id="countdown"></p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#rsvp">RSVP</a>
+        <a class="btn btn-ghostw" href="#story">Our story&nbsp;&darr;</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= STORY ================= -->
+<section id="story">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">How we got here</p>
+      <h2>Our story</h2>
+      <div class="h-rule" aria-hidden="true"><span>&amp;</span></div>
+    </div>
+
+    <div class="unit">
+      <figure class="u-photo">
+        <img src="images/miata-sunset.jpg" alt="Joseph driving the Miata at sunset, top down" loading="lazy" width="1200" height="1600">
+        <figcaption>The Miata. Two seats, zero backseat drivers.</figcaption>
+      </figure>
+      <div class="u-text">
+        <p>We knew each other from church for about two years, in that way where you say hi every Sunday and never once have a real conversation. Then a little friend group formed around Maria's friend Abby Duty (shoutout, Abby), and right around then Joe bought a Miata, which seats exactly two people and loses its roof on nice days. Joe insists Maria only started hanging out with him for the car, which honestly works out fine, because he bought the car to attract girls. Abby started getting mysteriously busy, the two of us started taking long drives with the top down, and by the end of all those back roads and sunsets neither of us was fooling anybody. Our friend Caleb Nickens was already telling people we were dating, which we both firmly denied. Looking back, who's to say 🤷</p>
+        <p>If you ask Joe, he knew pretty early. If you ask Maria, she felt absolutely nothing, which is the story she kept telling until Ms.&nbsp;Amy, our pastor's wife, sat her down and told her to stop lying to herself. So we finally said it out loud, in the Miata of course, and started planning our first date.</p>
+      </div>
+    </div>
+
+    <div class="unit">
+      <figure class="u-photo">
+        <img src="images/miata-selfie.jpg" alt="Joseph and Maria in the Miata with the top down" loading="lazy" width="1200" height="1600">
+        <figcaption>Top down, obviously.</figcaption>
+      </figure>
+      <div class="u-text">
+        <p>The first date was exciting, except for the fact that it never happened. Maria's best friend Moriah reminded her that she'd promised God she was staying single that summer to focus on her Praying Pelican mission trips, so we canceled the date and made a very serious agreement to stop texting and FaceTiming so much. We kept that agreement for approximately zero days, including the ones when she was away on her trips.</p>
+        <p>When she came home for a week between trips, Maria called a coffee shop meeting and announced that we were going completely silent for three weeks. It turned into almost six, and by the time she was home for good she'd decided she wasn't interested anymore, so we went our separate ways. Joe spent those weeks strangely confident that she'd come back around. She did, eventually, on exactly her own schedule, and yes, she made us put that part in.</p>
+      </div>
+    </div>
+
+    <div class="unit">
+      <figure class="u-photo">
+        <img src="images/diner.jpg" alt="Joseph and Maria at a diner booth with menus" loading="lazy" width="1200" height="1600">
+        <figcaption>Where a lot of the talking happened.</figcaption>
+      </figure>
+      <div class="u-text">
+        <p>A month or so later the conversation crept back in, a little at a time, until we had to decide whether we were actually doing this. Maria asked for three weeks to pray about it, and by the end of week two we were talking as much as we ever had, so the answer wasn't exactly a mystery. Joe asked, we went out two days later, and the first two dates, which he planned himself and will describe to anyone who asks as legendary, genuinely were.</p>
+      </div>
+    </div>
+
+    <div class="unit">
+      <figure class="u-photo">
+        <img src="images/holland.jpg" alt="A storefront sign in downtown Holland, Michigan" loading="lazy" width="1200" height="1600">
+        <figcaption>Jean Marie's, home of the matching bracelets.</figcaption>
+      </figure>
+      <div class="u-text">
+        <p>Date number two was Holland. We wandered downtown and found a cute little shop called Jean Marie's, and walked out with matching WWJD bracelets in beige, which is Maria's favorite color. Joe's official plan was to wait until date three to ask her to be his girlfriend, but between the matching bracelets and the romantic sunset-on-the-beach finale he'd planned (incredible date planning, by the way), he knew he had to ask that night. Maria was expecting a date-three question too, but things were going so perfectly that she'd started hoping he would just go ahead and ask.</p>
+        <p>So we made it official that night, sitting in the bed of an F-150 Lightning on the beach, waiting on that famous romantic sunset, which the clouds mostly swallowed. What we got instead was orange and red glowing through them, which was honestly its own kind of pretty, and Holland has been our place ever since.</p>
+      </div>
+    </div>
+
+    <div class="unit">
+      <figure class="u-photo">
+        <img src="images/proposal.jpg" alt="Joseph proposing to Maria in the bed of an F-150 Lightning at the beach" loading="lazy" width="800" height="1200">
+        <figcaption>Same beach. Same truck. One new question.</figcaption>
+      </figure>
+      <div class="u-text">
+        <p>So this spring, with some undercover help from Joe's sister Kristen and, of course, Moriah, the three of them headed to Holland for what Maria thought was just another one of our beach days. Joe had an elaborate excuse for staying behind: he had to work, because his test had caught on fire 🔥 (shoutout to his boss Wesley for helping sell that one). He even left his phone at work so it would look like he was still there. It almost worked, but a Joe who doesn't answer texts is a suspicious thing, and Maria got suspicious enough to figure the whole thing out, and yes, she has proof.</p>
+        <p>Meanwhile the real plan was waiting back at our beach, in the same truck from date number two, plus a ring with a tulip setting, because the tulip is the flower of Holland. Suspicious or not, Maria still says it was absolutely perfect.</p>
+        <p>She said yes, and the rest is history, also known as wedding planning.</p>
+      </div>
+    </div>
+
+    <figure class="solo">
+      <img src="images/ring.jpg" alt="Maria's hand on Joseph's chest, showing the tulip-set engagement ring" loading="lazy" width="800" height="1200">
+      <figcaption>A tulip, for Holland.</figcaption>
+    </figure>
+
+    <!-- EDIT: swap this verse if you'd like a different one -->
+    <div class="center" style="margin-top:56px">
+      <p class="epigraph">"Many waters cannot quench love, neither can the floods drown it."<span class="ref">Song of Solomon 8:7</span></p>
+      <p class="story-close">May 1, 2027. See you there.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DETAILS ================= -->
+<section id="details">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">The day</p>
+      <h2>When &amp; where</h2>
+      <div class="h-rule" aria-hidden="true"><span>&amp;</span></div>
+      <!-- EDIT: swap this verse if you'd like a different one -->
+      <p class="epigraph">"What therefore God hath joined together, let not man put asunder."<span class="ref">Mark 10:9</span></p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <p class="eyebrow">Ceremony</p>
+        <h3>Northline Church</h3>
+        <!-- EDIT #1: confirm the address below is your campus, and set the time when it's final -->
+        <p class="when">Saturday, May 1, 2027 · Time to follow</p>
+        <p>22140 Champaign St<br>Taylor, MI 48180</p>
+        <a class="map" href="https://www.google.com/maps/search/?api=1&amp;query=Northline+Church+22140+Champaign+St+Taylor+MI" target="_blank" rel="noopener">Map &amp; directions</a>
+      </div>
+      <div class="card">
+        <p class="eyebrow">Reception</p>
+        <h3>Celebration to follow</h3>
+        <!-- EDIT #2: replace with venue name, address, time, and a map link once booked -->
+        <p class="when">Details coming soon</p>
+        <p>We're finalizing the reception venue now — check back here after invitations go out, and we'll have the where, the when, and the parking covered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ATTIRE ================= -->
+<section class="attire" id="attire">
+  <div class="wrap center">
+    <p class="eyebrow">What to wear</p>
+    <h2>Somewhere between Sunday best<br>and black tie</h2>
+      <div class="h-rule" aria-hidden="true"><span>&amp;</span></div>
+
+    <div class="outfits" aria-hidden="true">
+      <div>
+        <!-- suit, garment-flat style -->
+        <svg viewBox="0 0 200 280" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- jacket body -->
+          <path d="M100 34 C92 34 86 36 80 40 L56 50 C50 66 47 92 46 118 L60 122 L64 96 L64 168 C76 172 88 174 100 174 C112 174 124 172 136 168 L136 96 L140 122 L154 118 C153 92 150 66 144 50 L120 40 C114 36 108 34 100 34 Z"/>
+          <!-- collar + lapels with notch -->
+          <path d="M84 38 L100 96 L82 62 L84 50 L78 44"/>
+          <path d="M116 38 L100 96 L118 62 L116 50 L122 44"/>
+          <path d="M100 96 L100 170" stroke-dasharray="1 7" stroke-width="1.6"/>
+          <!-- buttons -->
+          <circle cx="106" cy="118" r="2.6" fill="currentColor" stroke="none"/>
+          <circle cx="106" cy="140" r="2.6" fill="currentColor" stroke="none"/>
+          <!-- pocket square -->
+          <path d="M70 104 L84 104 L82 96 L74 96 Z" stroke="#C57E89" fill="#EBBFC3" fill-opacity=".65" stroke-width="1.6"/>
+          <!-- hip pockets -->
+          <path d="M66 142 L84 140" stroke-width="1.6"/><path d="M116 140 L134 142" stroke-width="1.6"/>
+          <!-- trousers -->
+          <path d="M72 174 L70 258 L92 258 L98 196 L104 196 L110 258 L132 258 L128 174"/>
+          <path d="M81 186 L80 252" stroke-dasharray="1 7" stroke-width="1.4"/>
+          <path d="M119 186 L120 252" stroke-dasharray="1 7" stroke-width="1.4"/>
+        </svg>
+        <p class="label">Suit or sport coat<br>tie optional</p>
+      </div>
+      <div>
+        <!-- midi dress, garment-flat style -->
+        <svg viewBox="0 0 200 280" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- straps -->
+          <path d="M78 30 C77 40 77 48 78 56"/>
+          <path d="M122 30 C123 40 123 48 122 56"/>
+          <!-- neckline + bodice -->
+          <path d="M78 56 C86 66 114 66 122 56"/>
+          <path d="M78 56 C74 74 74 92 78 108 C92 114 108 114 122 108 C126 92 126 74 122 56"/>
+          <path d="M90 62 C88 78 88 94 90 106" stroke-width="1.4" opacity=".55"/>
+          <path d="M110 62 C112 78 112 94 110 106" stroke-width="1.4" opacity=".55"/>
+          <!-- waist sash + side bud -->
+          <path d="M78 108 C92 116 108 116 122 108" stroke="#C57E89"/>
+          <path d="M124 108 C120 104 120 99 124 95 C128 99 128 104 124 108 Z" stroke="#C57E89" fill="#EBBFC3" fill-opacity=".65" stroke-width="1.6"/>
+          <path d="M124 108 C126 116 125 124 122 130" stroke="#35503A" stroke-width="1.6"/>
+          <!-- midi skirt with drape -->
+          <path d="M78 108 C64 148 54 190 50 232 C82 246 118 246 150 232 C146 190 136 148 122 108"/>
+          <path d="M88 118 C82 154 78 192 76 226" stroke-width="1.4" opacity=".5"/>
+          <path d="M100 120 C99 156 99 194 100 230" stroke-width="1.4" opacity=".5"/>
+          <path d="M112 118 C118 154 122 192 124 226" stroke-width="1.4" opacity=".5"/>
+          <!-- hem sweep -->
+          <path d="M50 232 C82 240 118 240 150 232" stroke-width="1.6" opacity=".7"/>
+        </svg>
+        <p class="label">Midi or knee-length<br>dress &amp; dressy separates</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Dressy, but not stuffy: a suit or sport coat with slacks for the gentlemen, a midi- or knee-length dress, jumpsuit, or dressy separates for the ladies. If it would work for a nice dinner out, it works here.</p>
+      <p class="note">It's May in Michigan — a light layer for the evening is never a bad idea.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Good questions</p>
+      <h2>A few things to know</h2>
+      <div class="h-rule" aria-hidden="true"><span>&amp;</span></div>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Are kids invited?</summary>
+        <p class="a">We love your little ones — truly. But to keep our day intimate (and the guest list from tripling — big families, you understand), we're only able to include the children whose names appear on your invitation. If your invitation doesn't list them, please take the evening as a well-earned night off. We're sorry we couldn't include every kiddo we love, and we're so grateful for your understanding.</p>
+      </details>
+      <details>
+        <summary>Can I bring a plus-one?</summary>
+        <p class="a">We'd love to meet everyone's favorite people, but seats are limited, so plus-ones are by invitation. If your invitation includes one, it will say so — and there will be a spot for their name when you RSVP.</p>
+      </details>
+      <details>
+        <summary>When should I RSVP by?</summary>
+        <!-- EDIT #3: set the real deadline once invitations are scheduled -->
+        <p class="a">The RSVP form below will open when invitations go out, and the deadline will be printed on your invitation and posted here. Early is always appreciated — it makes the caterer very happy.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REGISTRY ================= -->
+<section id="registry">
+  <div class="wrap center">
+    <p class="eyebrow">Registry</p>
+    <h2>Gifts</h2>
+      <div class="h-rule" aria-hidden="true"><span>&amp;</span></div>
+    <div class="registry-panel">
+      <p>Our registry is still in the works — check back after invitations go out. And truly: your presence on the day is the present.</p>
+      <!-- EDIT #4: when registries exist, replace the paragraph above with links (see v1 template) -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= RSVP ================= -->
+<section class="rsvp" id="rsvp">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow">Kindly reply</p>
+      <h2>RSVP</h2>
+      <div class="h-rule" aria-hidden="true"><span>&amp;</span></div>
+    </div>
+    <div class="rsvp-note" id="rsvpClosed">
+      <p>The RSVP will open when invitations go out.<br>For now — save the date: <strong>May&nbsp;1,&nbsp;2027</strong>.</p>
+    </div>
+    <form id="rsvpForm" class="hidden" novalidate>
+      <div class="field"><label for="name">Your full name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
+      <div class="field"><label>Will you be joining us?</label>
+        <div class="radios">
+          <label><input type="radio" name="attending" value="Joyfully accepts" required> Joyfully accepts</label>
+          <label><input type="radio" name="attending" value="Regretfully declines"> Regretfully declines</label>
+        </div>
+      </div>
+      <div class="field"><label for="guests">Everyone attending from your invitation</label><textarea id="guests" name="guests" placeholder="Including yourself — one name per line"></textarea></div>
+      <div class="field"><label for="dietary">Dietary restrictions or allergies</label><textarea id="dietary" name="dietary" placeholder="Anything the kitchen should know (optional)"></textarea></div>
+      <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" placeholder="In case we need to reach you (optional)"></div>
+      <div class="hp" aria-hidden="true"><label for="company">Leave this field empty</label><input type="text" id="company" name="company" tabindex="-1" autocomplete="off"></div>
+      <button type="submit" id="sendBtn">Send our RSVP</button>
+    </form>
+    <div class="rsvp-thanks hidden" id="rsvpThanks">
+      <p><strong>Got it — thank you!</strong><br>Your RSVP is in. We can't wait to celebrate with you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <!-- EDIT #5: swap the verse if you'd like a different one -->
+  <p class="verse">"We love because He first loved us."</p>
+  <p class="ref">1 John 4:19</p>
+  <p class="names">Joseph <span class="amp">&amp;</span> Maria</p>
+  <p class="date">May 1, 2027 · Taylor, Michigan</p>
+</footer>
+
+<script>
+/* EDIT #6 — RSVP switches (unchanged from v1) */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaBwloJ7WF471s-_qajvdwzv6gK5ory5RC88FMD9TLdwP0_VbCyvVJht4Q1AEFemAnhw/exec";
+const RSVP_OPEN  = false;
+
+(function(){ const d = Math.ceil((new Date(2027,4,1)-new Date())/86400000);
+  if(d>0) document.getElementById('countdown').textContent = d+" days to go"; })();
+
+const form = document.getElementById('rsvpForm');
+if (RSVP_OPEN && SCRIPT_URL.startsWith('https://')) {
+  document.getElementById('rsvpClosed').classList.add('hidden');
+  form.classList.remove('hidden');
+}
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  if(!form.reportValidity()) return;
+  if(form.company.value) return;
+  const btn=document.getElementById('sendBtn'); btn.disabled=true; btn.textContent="Sending…";
+  try{ await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:new FormData(form)}); }catch(err){}
+  form.classList.add('hidden');
+  document.getElementById('rsvpThanks').classList.remove('hidden');
+});
+
+</script>
+</body>
+</html>
