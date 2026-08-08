@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>RSVP — Joseph &amp; Maria</title>
+<meta property="og:image" content="https://josephandmaria2027.com/images/hero-beach.jpg">
+<script>document.documentElement.classList.add('gated')</script>
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/config.js"></script>
+<script src="assets/gate.js"></script>
+</head>
+<body data-page="rsvp">
+<div class="page-wrap">
+
+  <section id="rsvp">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Kindly reply</p>
+        <h2>RSVP</h2>
+        <div class="h-rule" aria-hidden="true"><span>&amp;</span></div>
+        <p class="muted" data-deadline></p>
+      </div>
+
+      <div id="rsvpApp">
+        <!-- shown when RSVP_OPEN is false -->
+        <div class="rsvp-note hidden" id="rsvpClosed">
+          <p>The RSVP will open when invitations go out.<br>For now — save the date: <strong>May&nbsp;1,&nbsp;2027</strong>.</p>
+        </div>
+
+        <!-- STEP 1 — invite code -->
+        <form class="formcard hidden" id="codeForm" novalidate>
+          <p class="center muted" style="margin-bottom:18px">Enter the invitation code printed on your invitation.</p>
+          <div class="field">
+            <label for="inviteCode">Invitation code</label>
+            <input type="text" id="inviteCode" class="code-input" maxlength="8" autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ABC123">
+          </div>
+          <button type="submit">Find my invitation</button>
+          <p class="form-error hidden" id="codeErr"></p>
+        </form>
+
+        <!-- STEP 2 — the household -->
+        <div class="hidden" id="household">
+          <form class="formcard" id="rsvpForm" novalidate>
+            <p id="hlabel" class="center" style="font-family:var(--serif);font-style:italic;font-size:20px;color:var(--rose-deep);margin-bottom:20px"></p>
+            <div id="members"></div>
+            <div class="field"><label for="song">Song request <span class="hint">optional</span></label><input type="text" id="song" placeholder="A song that'll get you on the dance floor"></div>
+            <div class="field"><label for="sitNear">Who would you like to sit near? <span class="hint">optional</span></label><input type="text" id="sitNear" placeholder="We'll use this when we plan the tables"></div>
+            <div class="field"><label for="note">A note for us <span class="hint">optional</span></label><textarea id="note" placeholder="Anything you'd like us to know"></textarea></div>
+            <div class="field"><label for="email">Email <span class="hint">optional</span></label><input type="email" id="email" placeholder="In case we need to reach you"></div>
+            <button type="submit" id="rsvpSend">Send our RSVP</button>
+            <p class="form-error hidden" id="rsvpErr"></p>
+          </form>
+        </div>
+
+        <div class="rsvp-thanks hidden" id="rsvpThanks">
+          <p><strong>Got it — thank you!</strong><br>Your RSVP is in. We can't wait to celebrate with you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="verse">"We love each other because he loved us first."</p>
+    <p class="fref">1 John 4:19</p>
+    <p class="fnames">Joseph <span class="amp">&amp;</span> Maria</p>
+    <p class="fdate">May 1, 2027 · Taylor, Michigan</p>
+  </footer>
+</div>
+
+<script src="assets/nav.js"></script>
+<script src="assets/render.js"></script>
+<script src="assets/rsvp.js"></script>
+</body>
+</html>

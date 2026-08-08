@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Registry — Joseph &amp; Maria</title>
+<meta property="og:image" content="https://josephandmaria2027.com/images/hero-beach.jpg">
+<script>document.documentElement.classList.add('gated')</script>
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/config.js"></script>
+<script src="assets/gate.js"></script>
+</head>
+<body data-page="registry">
+<div class="page-wrap">
+
+  <section>
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Registry</p>
+        <h2>Gifts</h2>
+        <div class="h-rule" aria-hidden="true"><span>&amp;</span></div>
+        <p class="muted" style="max-width:52ch;margin:0 auto">
+          Truly, your presence is the present. If you'd like to give a gift, we've gathered
+          everything in one place so nothing gets bought twice.
+        </p>
+      </div>
+      <!-- MyRegistry embed (consolidated, with real purchase tracking) -->
+      <div class="registry-embed" id="registryEmbed"></div>
+    </div>
+  </section>
+
+  <!-- ===== HONEYMOON FUND ===== -->
+  <section class="tint-blush">
+    <div class="wrap">
+      <div class="fund-card">
+        <p class="eyebrow">Honeymoon fund</p>
+        <h3>Send us off</h3>
+        <p class="muted">Prefer to help with the honeymoon? A tap sends it straight to our Venmo.</p>
+        <a class="venmo-btn hidden" id="venmoBtn" target="_blank" rel="noopener">Give with Venmo</a>
+        <div class="qr" id="venmoQR">Add <strong>images/venmo-qr.png</strong> to show a scannable code here</div>
+        <p class="muted" style="font-size:13px;margin-top:14px">Tip: set your Venmo transactions to private so your feed stays yours.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="verse">"Whatever is good and perfect is a gift coming down to us from God our Father."</p>
+    <p class="fref">James 1:17</p>
+    <p class="fnames">Joseph <span class="amp">&amp;</span> Maria</p>
+    <p class="fdate">May 1, 2027 · Taylor, Michigan</p>
+  </footer>
+</div>
+
+<script src="assets/nav.js"></script>
+<script>
+/* Registry embed + Venmo — driven by MYREGISTRY_URL and VENMO_USER in config.js */
+(function () {
+  var S = window.SITE || {};
+  var emb = document.getElementById("registryEmbed");
+  if (emb) {
+    if (S.MYREGISTRY_URL) {
+      emb.innerHTML = '<iframe src="' + S.MYREGISTRY_URL + '" title="Our registry" loading="lazy" referrerpolicy="no-referrer"></iframe>';
+    } else {
+      emb.innerHTML = '<div class="panel center"><p class="muted">Registry coming soon. Set <strong>MYREGISTRY_URL</strong> in <strong>assets/config.js</strong> to embed your MyRegistry page here — one link, all stores, no duplicate gifts.</p></div>';
+    }
+  }
+  var btn = document.getElementById("venmoBtn");
+  if (btn && S.VENMO_USER) {
+    btn.href = "https://venmo.com/" + encodeURIComponent(S.VENMO_USER);
+    btn.classList.remove("hidden");
+  }
+})();
+</script>
+</body>
+</html>
