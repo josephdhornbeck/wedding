@@ -94,5 +94,31 @@
     moreBtn.addEventListener("click", function (e) { e.preventDefault(); sheet.classList.contains("open") ? closeSheet() : openSheet(); });
     sheet.addEventListener("click", function (e) { if (e.target === sheet || e.target.classList.contains("more-close")) closeSheet(); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && sheet.classList.contains("open")) closeSheet(); });
+
+    prefetchPages();
   });
+
+  /* Smooth navigation: prefetch the other pages while the browser is idle (and the
+     moment a link is hovered), so a click renders from cache instead of the network.
+     Works on the live https site; a harmless no-op where prefetch isn't supported. */
+  function prefetchPages() {
+    var PAGES = ["index.html", "story.html", "faq.html", "party.html", "registry.html", "rsvp.html", "fun.html"];
+    var here = location.pathname.split("/").pop() || "index.html";
+    var done = {};
+    function prefetch(href) {
+      if (!href) return;
+      href = href.split("#")[0].split("?")[0];
+      if (!href || done[href] || href === here || !/\.html$/.test(href)) return;
+      done[href] = 1;
+      var l = document.createElement("link");
+      l.rel = "prefetch"; l.as = "document"; l.href = href;
+      document.head.appendChild(l);
+    }
+    var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 700); };
+    idle(function () { PAGES.forEach(prefetch); });
+    document.addEventListener("pointerover", function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href$=".html"]') : null;
+      if (a) prefetch(a.getAttribute("href"));
+    }, { passive: true });
+  }
 })();
