@@ -9,9 +9,9 @@
   }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    initTrivia(); initGuestbook(); initPolls();
-  });
+  function boot() { initTrivia(); initGuestbook(); initPolls(); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+  document.addEventListener("jm:navigated", boot);
 
   /* ---------------- trivia ---------------- */
   function initTrivia() {

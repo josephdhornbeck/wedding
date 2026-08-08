@@ -1,7 +1,7 @@
-/* Liquid-glass navigation — injected on every page (single source of truth).
-   Mobile: floating bottom tab bar (5 tabs + More sheet with Party & Fun).
-   Desktop: frosted top bar with all pages. A frosted capsule marks the active
-   page and glides between pages via the View Transitions API where supported. */
+/* Liquid-glass navigation — injected ONCE and kept in place across soft (SPA) page
+   swaps, so the bar never reloads. Mobile: floating bottom tab bar (5 tabs + More).
+   Desktop: frosted top bar (all 7). The frosted capsule marks the active page;
+   updateActive() re-runs on every soft navigation (jm:navigated). */
 (function () {
   var ICON = {
     home:     '<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>',
@@ -44,63 +44,44 @@
       '</div>' +
     '</div>';
 
-  document.addEventListener("DOMContentLoaded", function () {
-    if (document.getElementById("siteNav")) return;
-    var frag = document.createElement("div");
-    frag.innerHTML = NAV;
-    while (frag.lastChild) document.body.insertBefore(frag.lastChild, document.body.firstChild);
+  var nav, tabs, capsule, moreBtn, sheet;
 
-    var nav = document.getElementById("siteNav");
+  function activeEl() {
+    var els = nav.querySelectorAll('.navtabs a.active, .navtabs .moretab.active');
+    for (var i = 0; i < els.length; i++) { if (els[i].offsetParent !== null) return els[i]; }
+    return null;
+  }
+  function placeCapsule() {
+    if (!nav || !capsule) return;
+    var el = activeEl();
+    if (!el) { capsule.style.opacity = 0; return; }
+    var r = el.getBoundingClientRect(), pr = tabs.getBoundingClientRect();
+    capsule.style.opacity = 1;
+    capsule.style.width = r.width + "px";
+    capsule.style.height = r.height + "px";
+    capsule.style.transform = "translateX(" + (r.left - pr.left) + "px) translateY(" + (r.top - pr.top) + "px)";
+    capsule.classList.toggle("cap-rose", el.classList.contains("is-rsvp"));
+  }
+  function updateActive() {
+    if (!nav) return;
     var page = document.body.getAttribute("data-page");
-    var tabs = nav.querySelector(".navtabs");
-    var capsule = nav.querySelector(".nav-capsule");
-
+    nav.querySelectorAll('.navtabs a.active, .moretab.active').forEach(function (el) {
+      el.classList.remove("active"); el.removeAttribute("aria-current");
+    });
+    if (sheet) sheet.querySelectorAll("a.active").forEach(function (el) { el.classList.remove("active"); });
     var pageLink = nav.querySelector('.navtabs a[data-page="' + page + '"]');
     if (pageLink) { pageLink.classList.add("active"); pageLink.setAttribute("aria-current", "page"); }
-
-    var moreBtn = document.getElementById("moreBtn");
-    var sheet = document.getElementById("moreSheet");
-
-    /* Party & Fun live under "More" on mobile; light up More + the sheet link. */
     if (page === "party" || page === "fun") {
       moreBtn.classList.add("active");
       var slink = sheet.querySelector('a[data-page="' + page + '"]');
       if (slink) slink.classList.add("active");
     }
+    placeCapsule();
+  }
 
-    function activeEl() {
-      var els = nav.querySelectorAll('.navtabs a.active, .navtabs .moretab.active');
-      for (var i = 0; i < els.length; i++) { if (els[i].offsetParent !== null) return els[i]; }
-      return null;
-    }
-    function place() {
-      var el = activeEl();
-      if (!el) { capsule.style.opacity = 0; return; }
-      var r = el.getBoundingClientRect(), pr = tabs.getBoundingClientRect();
-      capsule.style.opacity = 1;
-      capsule.style.width = r.width + "px";
-      capsule.style.height = r.height + "px";
-      capsule.style.transform = "translateX(" + (r.left - pr.left) + "px) translateY(" + (r.top - pr.top) + "px)";
-      capsule.classList.toggle("cap-rose", el.classList.contains("is-rsvp"));
-    }
-    place();
-    window.addEventListener("resize", place);
-    window.addEventListener("load", place);
-    window.addEventListener("jm:unlock", place);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  function openSheet() { sheet.hidden = false; requestAnimationFrame(function () { sheet.classList.add("open"); }); }
+  function closeSheet() { if (sheet) { sheet.classList.remove("open"); setTimeout(function () { sheet.hidden = true; }, 260); } }
 
-    function openSheet() { sheet.hidden = false; requestAnimationFrame(function () { sheet.classList.add("open"); }); }
-    function closeSheet() { sheet.classList.remove("open"); setTimeout(function () { sheet.hidden = true; }, 260); }
-    moreBtn.addEventListener("click", function (e) { e.preventDefault(); sheet.classList.contains("open") ? closeSheet() : openSheet(); });
-    sheet.addEventListener("click", function (e) { if (e.target === sheet || e.target.classList.contains("more-close")) closeSheet(); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && sheet.classList.contains("open")) closeSheet(); });
-
-    prefetchPages();
-  });
-
-  /* Smooth navigation: prefetch the other pages while the browser is idle (and the
-     moment a link is hovered), so a click renders from cache instead of the network.
-     Works on the live https site; a harmless no-op where prefetch isn't supported. */
   function prefetchPages() {
     var PAGES = ["index.html", "story.html", "faq.html", "party.html", "registry.html", "rsvp.html", "fun.html"];
     var here = location.pathname.split("/").pop() || "index.html";
@@ -116,9 +97,34 @@
     }
     var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 700); };
     idle(function () { PAGES.forEach(prefetch); });
-    document.addEventListener("pointerover", function (e) {
-      var a = e.target && e.target.closest ? e.target.closest('a[href$=".html"]') : null;
-      if (a) prefetch(a.getAttribute("href"));
-    }, { passive: true });
   }
+
+  function build() {
+    if (document.getElementById("siteNav")) return;
+    var frag = document.createElement("div");
+    frag.innerHTML = NAV;
+    while (frag.lastChild) document.body.insertBefore(frag.lastChild, document.body.firstChild);
+
+    nav = document.getElementById("siteNav");
+    tabs = nav.querySelector(".navtabs");
+    capsule = nav.querySelector(".nav-capsule");
+    moreBtn = document.getElementById("moreBtn");
+    sheet = document.getElementById("moreSheet");
+
+    moreBtn.addEventListener("click", function (e) { e.preventDefault(); sheet.classList.contains("open") ? closeSheet() : openSheet(); });
+    sheet.addEventListener("click", function (e) { if (e.target === sheet || e.target.classList.contains("more-close")) closeSheet(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && sheet.classList.contains("open")) closeSheet(); });
+
+    window.addEventListener("resize", placeCapsule);
+    window.addEventListener("load", placeCapsule);
+    window.addEventListener("jm:unlock", placeCapsule);
+    document.addEventListener("jm:navigated", function () { closeSheet(); updateActive(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeCapsule);
+
+    prefetchPages();
+    updateActive();
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
+  else build();
 })();

@@ -12,7 +12,7 @@
     return mo + " " + (+p[2]) + ", " + p[0];
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function boot() {
     renderMeta();
     renderVenue("ceremony", S.CEREMONY);
     renderVenue("reception", S.RECEPTION);
@@ -20,7 +20,20 @@
     renderGallery();
     renderPeople("partyAdults", S.PARTY_ADULTS, false);
     renderPeople("partyKids", S.PARTY_KIDS, true);
-  });
+    renderRegistry();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+  document.addEventListener("jm:navigated", boot);
+
+  function renderRegistry() {
+    var emb = document.getElementById("registryEmbed");
+    if (emb) {
+      if (S.MYREGISTRY_URL) emb.innerHTML = '<iframe src="' + S.MYREGISTRY_URL + '" title="Our registry" loading="lazy" referrerpolicy="no-referrer"></iframe>';
+      else emb.innerHTML = '<div class="panel center"><p class="muted">Registry coming soon. Set <strong>MYREGISTRY_URL</strong> in <strong>assets/config.js</strong> to embed your MyRegistry page here.</p></div>';
+    }
+    var btn = document.getElementById("venmoBtn");
+    if (btn && S.VENMO_USER) { btn.href = "https://venmo.com/" + encodeURIComponent(S.VENMO_USER); btn.classList.remove("hidden"); }
+  }
 
   function renderMeta() {
     var wed = new Date(S.WEDDING_DATE);

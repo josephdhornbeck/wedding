@@ -5,14 +5,16 @@
 (function () {
   var S = window.SITE || {}, W = S.WEATHER || {};
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function boot() {
     var host = document.getElementById("weather");
     if (!host) return;
     var wed = new Date(S.WEDDING_DATE);
     var days = Math.ceil((wed - new Date()) / 86400000);
     if (days <= (W.switchDays || 16) && days >= -1) liveForecast(host, wed);
     else typical(host, false);
-  });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+  document.addEventListener("jm:navigated", boot);
 
   function wmo(c) {
     var m = {

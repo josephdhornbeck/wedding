@@ -14,7 +14,7 @@
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function val(id) { var e = document.getElementById(id); return e ? (e.value || "").trim() : ""; }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function boot() {
     var root = document.getElementById("rsvpApp");
     if (!root) return;
 
@@ -136,5 +136,7 @@
         btn.disabled = false; btn.textContent = "Send our RSVP";
       });
     });
-  });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+  document.addEventListener("jm:navigated", boot);
 })();
